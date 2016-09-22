@@ -1,0 +1,13 @@
+FROM ubuntu:latest
+MAINTAINER Ajish George "yell@aji.sh"
+RUN apt-get update -y
+RUN apt-get install -y python-pip python-dev build-essential
+COPY app /app
+WORKDIR /app
+ENV FLASK_APP=todolist.py
+RUN pip install -r requirements.txt
+RUN pip install -r test-requirements.txt
+RUN python -m flask fill_db
+EXPOSE 8081
+ENTRYPOINT ["python"]
+CMD ["todolist.py"]
